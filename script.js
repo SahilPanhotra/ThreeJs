@@ -1,3 +1,6 @@
+//import THREE from node modules
+import * as THREE from 'three';
+
 //First of all we need a 3d Scene
 const scene = new THREE.Scene();
 
