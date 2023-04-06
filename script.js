@@ -2,6 +2,17 @@
 import * as THREE from "three";
 import gsap from "gsap";
 //First of all we need a 3d Scene
+
+//Cursor Cordinates
+const cursor = {
+  x: 0,
+  y: 0,
+};
+window.addEventListener("mousemove", (event) => {
+  cursor.x = event.clientX / sizes.width - 0.5;
+  cursor.y = event.clientY / sizes.height - 0.5;
+});
+
 const scene = new THREE.Scene();
 
 //Objects for the Scene which will have geometry and material to form a mesh
@@ -23,20 +34,25 @@ const sizes = {
 // Camera
 //It is perspective Camera meaning far things gets smaller and with much enlarged field of view it can act wierd so use field of view angle between 30-55 max
 
-// const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,1,100);
-const aspectRatio = sizes.width / sizes.height;
-const camera = new THREE.OrthographicCamera(
-  -1 * aspectRatio,
-  1 * aspectRatio,
+const camera = new THREE.PerspectiveCamera(
+  75,
+  sizes.width / sizes.height,
   1,
-  -1,
-  0.1,
   100
 );
+// const aspectRatio = sizes.width / sizes.height;
+// const camera = new THREE.OrthographicCamera(
+//   -1 * aspectRatio,
+//   1 * aspectRatio,
+//   1,
+//   -1,
+//   0.1,
+//   100
+// );
 
 //Alwayz set your camera position before setting it to scene and render
-camera.position.x = 2;
-camera.position.y = 2;
+// camera.position.x = 2;
+// camera.position.y = 2;
 camera.position.z = 2;
 camera.lookAt(mesh.position);
 scene.add(camera);
@@ -59,8 +75,12 @@ const tick = () => {
   // // Time
   const elapsedTime = clock.getElapsedTime();
 
-  // // Update objects
-  mesh.rotation.y = elapsedTime;
+  // // Update
+  camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 2 ;
+  camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 2 ;
+  camera.position.y = -(cursor.y*3);
+  camera.lookAt(mesh.position)
+  // mesh.rotation.y = elapsedTime;
   // mesh.position.y = Math.sin(elapsedTime);
   //render needs scene and camera to render
   renderer.render(scene, camera);
