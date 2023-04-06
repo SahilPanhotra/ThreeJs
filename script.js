@@ -1,5 +1,5 @@
 //import THREE from node modules
-import * as THREE from 'three';
+import * as THREE from "three";
 
 //First of all we need a 3d Scene
 const scene = new THREE.Scene();
@@ -36,5 +36,12 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 
-//render needs scene and camera to render
-renderer.render(scene, camera);
+//Animation
+const tick = () => {
+  console.log("tick");
+  mesh.position.x -= 0.01;
+  //render needs scene and camera to render
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(tick);
+};
+tick();
