@@ -1,6 +1,6 @@
 //import THREE from node modules
 import * as THREE from "three";
-import gsap from 'gsap'
+import gsap from "gsap";
 //First of all we need a 3d Scene
 const scene = new THREE.Scene();
 
@@ -22,9 +22,23 @@ const sizes = {
 
 // Camera
 //It is perspective Camera meaning far things gets smaller and with much enlarged field of view it can act wierd so use field of view angle between 30-55 max
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
+
+// const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,1,100);
+const aspectRatio = sizes.width / sizes.height;
+const camera = new THREE.OrthographicCamera(
+  -1 * aspectRatio,
+  1 * aspectRatio,
+  1,
+  -1,
+  0.1,
+  100
+);
+
 //Alwayz set your camera position before setting it to scene and render
-camera.position.z = 3;
+camera.position.x = 2;
+camera.position.y = 2;
+camera.position.z = 2;
+camera.lookAt(mesh.position);
 scene.add(camera);
 
 //But adding a camera is not enough you need some thing in your dom to render it onto
@@ -35,18 +49,18 @@ const renderer = new THREE.WebGLRenderer({
   canvas,
 });
 renderer.setSize(sizes.width, sizes.height);
-
+const clock = new THREE.Clock();
 //using Gsap Library
-gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 })
-gsap.to(mesh.position, { duration: 1, delay: 2, x: -2 })
+// gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 })
+// gsap.to(mesh.position, { duration: 1, delay: 2, x: -2 })
 
 //Animation
 const tick = () => {
   // // Time
-  // const elapsedTime = clock.getElapsedTime();
+  const elapsedTime = clock.getElapsedTime();
 
   // // Update objects
-  // mesh.position.x = Math.cos(elapsedTime);
+  mesh.rotation.y = elapsedTime;
   // mesh.position.y = Math.sin(elapsedTime);
   //render needs scene and camera to render
   renderer.render(scene, camera);
