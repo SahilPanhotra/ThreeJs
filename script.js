@@ -36,16 +36,16 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 
-let time =  Date.now()
+//using clock 
+const clock = new THREE.Clock()
+
 //Animation
 const tick = () => {
   // Time
-  const currentTime = Date.now()
-  const deltaTime = currentTime - time
-  time = currentTime
+  const elapsedTime = clock.getElapsedTime()
 
-  // Update objects We are multiplying by deltaTime to match speed of our model animation on all devices
-  mesh.rotation.y += 0.01 * deltaTime
+  // Update objects
+  mesh.rotation.y = elapsedTime
   //render needs scene and camera to render
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
