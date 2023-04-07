@@ -29,8 +29,8 @@ scene.add(mesh);
 //Camera is Required to view the scene
 // Sizes
 const sizes = {
-  width: 800,
-  height: 600,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 
 // Camera
