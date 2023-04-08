@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "gsap": "^3.11.5",
+    "lil-gui": "^0.18.1",
     "three": "^0.151.3"
   },
   "devDependencies": {
